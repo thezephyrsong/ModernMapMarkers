@@ -2,6 +2,8 @@
 
 A lightweight addon that places markers on the world map for dungeons, raids, world bosses, boats, zeppelins, trams & portals.
 
+***Still in beta - finding accurate locations for endgame raids is hard at level 20 but will try to sort asap***
+
 ## ✨ **Features**
 
  Filter Markers dropdown menu. Enable/disable marker types & filter transports and portals by faction.
@@ -16,5 +18,5 @@ A lightweight addon that places markers on the world map for dungeons, raids, wo
 
 ## 👨‍💻 **Authors**
 
-Drakensangs
+Drakensangs,
 Zae
