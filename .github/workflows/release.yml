@@ -17,18 +17,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Step 1: Packager detects `wowi-id` in .pkgmeta and `WOWI_API_TOKEN` in env automatically
       - name: Package Addon
         uses: BigWigsMods/packager@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
 
-      # Step 2: Creates GitHub release with the .zip and automatically generated CHANGELOG.md
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: ".release/*.zip"
-          body_path: CHANGELOG.md
+          body_path: ".release/ModernMapMarkers/CHANGELOG.md"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
