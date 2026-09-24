@@ -1,0 +1,46 @@
+diff --git a/ModernMapMarkers.lua b/ModernMapMarkers.lua
+index 6350025..6f91c13 100644
+--- a/ModernMapMarkers.lua
++++ b/ModernMapMarkers.lua
+@@ -486,6 +486,9 @@ local function ShouldDisplay(db, rec)
+ 	elseif kind == "zepp" then
+ 		if not db.showZeppelins then return false end
+ 		factionKey = db.transportFaction
++	elseif kind == "skyship" then
++		if not db.showSkyships then return false end
++		factionKey = db.transportFaction
+ 	elseif kind == "tram" then
+ 		if not db.showTrams then return false end
+ 		factionKey = db.transportFaction
+@@ -591,6 +594,7 @@ local DEFAULTS = {
+ 	showWorldBosses    = true,
+ 	showBoats          = true,
+ 	showZeppelins      = true,
++	showSkyships       = true,
+ 	showTrams          = true,
+ 	showPortals        = true,
+ 	transportFaction   = "all",
+diff --git a/ModernMapMarkers.toc b/ModernMapMarkers.toc
+index 54155aa..2374bd1 100644
+--- a/ModernMapMarkers.toc
++++ b/ModernMapMarkers.toc
+@@ -1,6 +1,6 @@
+ ## Interface: 16001
+ ## Title: |cff7fff7fM|cffffffffodern |cff7fff7fM|cffffffffap |cff7fff7fM|cffffffffarkers
+-## Notes: Shows dungeon, raid, world boss, boat, zeppelin, tram & portal locations on the world map. (WoW: Forever port)
++## Notes: Shows dungeon, raid, world boss, boat, zeppelin, skyship, tram & portal locations on the world map. (WoW: Forever port)
+ ## Author: Drakensangs (Ported by Zae)
+ ## Version: @project-version@
+ ## IconTexture: Interface\AddOns\ModernMapMarkers\textures\dungeon
+diff --git a/ModernMapMarkers_UI.lua b/ModernMapMarkers_UI.lua
+index e90e549..4fde5be 100644
+--- a/ModernMapMarkers_UI.lua
++++ b/ModernMapMarkers_UI.lua
+@@ -231,6 +231,7 @@ local function InitFilterDropdown()
+ 	addHeader("Transports")
+ 	addToggle("Boats",        "showBoats")
+ 	addToggle("Zeppelins",    "showZeppelins")
++	addToggle("Skyships",     "showSkyships")
+ 	addToggle("Trams",        "showTrams")
+ 	addToggle("Portals",      "showPortals")
+ 	addHeader("Transport Faction")
