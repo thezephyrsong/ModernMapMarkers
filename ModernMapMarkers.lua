@@ -16,8 +16,8 @@ local HOVER_ALPHA             = 0.5
 local FIND_SIZE_MULTIPLIER    = 1.4
 local FIND_HIGHLIGHT_ALPHA    = 0.9
 local FIND_HIGHLIGHT_DURATION = 3.5
-local MARKER_SIZE_LARGE       = 32
-local MARKER_SIZE_SMALL       = 24
+local MARKER_SIZE_LARGE       = 48
+local MARKER_SIZE_SMALL       = 32
 local MAX_POOL_SIZE           = 50
 local PIN_LEVEL_FALLBACK      = 1000 -- above the canvas if the level manager is unavailable
 
