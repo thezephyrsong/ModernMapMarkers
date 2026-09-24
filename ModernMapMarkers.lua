@@ -486,6 +486,9 @@ local function ShouldDisplay(db, rec)
 	elseif kind == "zepp" then
 		if not db.showZeppelins then return false end
 		factionKey = db.transportFaction
+	elseif kind == "skyship" then
+		if not db.showSkyships then return false end
+		factionKey = db.transportFaction
 	elseif kind == "tram" then
 		if not db.showTrams then return false end
 		factionKey = db.transportFaction
@@ -591,6 +594,7 @@ local DEFAULTS = {
 	showWorldBosses    = true,
 	showBoats          = true,
 	showZeppelins      = true,
+	showSkyships       = true,
 	showTrams          = true,
 	showPortals        = true,
 	transportFaction   = "all",

@@ -1,6 +1,6 @@
 ## Interface: 16001
 ## Title: |cff7fff7fM|cffffffffodern |cff7fff7fM|cffffffffap |cff7fff7fM|cffffffffarkers
-## Notes: Shows dungeon, raid, world boss, boat, zeppelin, tram & portal locations on the world map. (WoW: Forever port)
+## Notes: Shows dungeon, raid, world boss, boat, zeppelin, skyship, tram & portal locations on the world map. (WoW: Forever port)
 ## Author: Drakensangs (Ported by Zae)
 ## Version: @project-version@
 ## IconTexture: Interface\AddOns\ModernMapMarkers\textures\dungeon

@@ -131,7 +131,7 @@ MMM_DefaultPoints = {
 		{14, 0.53, 0.486, "Ragefire Chasm", "dungeon", "13-18", 17},
 		{19, 0.508, 0.94, "Razorfen Downs", "dungeon", "37-46", 18},
 		{19, 0.423, 0.9, "Razorfen Kraul", "dungeon", "29-38", 19},
-		{23, 0.426, 0.061, "Shaper’s Terrace", "dungeon", "58-60", 3},
+		{23, 0.426, 0.061, "Shaper's Terrace", "dungeon", "58-60", 3},
 		{19, 0.462, 0.357, "Wailing Caverns", "dungeon", "17-24", 20},
 		{17, 0.389, 0.184, "Zul'Farrak", "dungeon", "44-54", 22},
 		-- Raids
