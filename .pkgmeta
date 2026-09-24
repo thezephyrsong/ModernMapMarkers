@@ -1,0 +1,13 @@
+package-as: ModernMapMarkers
+
+# Your WoWInterface AddOn ID (found in your WoWInterface URL, e.g., wowinterface.com/downloads/info12345)
+wowi-id: 27222
+
+enable-nolib-creation: no
+
+ignore:
+  - .git
+  - .gitattributes
+  - .gitignore
+  - .github
+  - README.md
