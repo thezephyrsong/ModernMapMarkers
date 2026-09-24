@@ -20,3 +20,6 @@ A lightweight addon that places markers on the world map for dungeons, raids, wo
 
 Drakensangs,
 Zae
+
+<img width="434" height="363" alt="Ruins of Lordaeron" src="https://github.com/user-attachments/assets/ae4c7260-3da8-4d78-8ea2-62011759dd71" />
+<img width="287" height="178" alt="Auberdine Boats" src="https://github.com/user-attachments/assets/d19d6fdd-d064-42cc-8d94-a80efacbe6e1" />
