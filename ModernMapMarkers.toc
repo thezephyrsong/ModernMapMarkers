@@ -5,6 +5,7 @@
 ## Version: @project-version@
 ## IconTexture: Interface\AddOns\ModernMapMarkers\textures\dungeon
 ## SavedVariablesPerCharacter: ModernMapMarkersDB
+## X-WoWI-ID: 27222
 
 MarkerData.lua
 ModernMapMarkers.lua
