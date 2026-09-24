@@ -19,6 +19,8 @@ jobs:
 
       - name: Package Addon
         uses: BigWigsMods/packager@v2
+        with:
+          args: -w
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
@@ -27,6 +29,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: ".release/*.zip"
-          body_path: ".release/CHANGELOG.md"
+          body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
