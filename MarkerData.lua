@@ -14,7 +14,7 @@
 --              may contain an embedded comment after \n
 --              example: "Gnomeregan\n|cFF808080(Workshop Entrance)|r"
 --              the comment is shown as a second line in the Find Marker panel
---   type     : "dungeon", "raid", "worldboss", "boat", "zepp", "tram" & "portal"
+--   type     : "dungeon", "raid", "worldboss", "boat", "zepp", "tram", "skyship" & "portal"
 --   info     : level range, examples: "52-60" or "60"
 --              faction string: "Alliance", "Horde" & "Neutral"
 --   atlasID  : kept for compatibility with the 3.3.5a data; unused on Forever
@@ -148,9 +148,9 @@ MMM_DefaultPoints = {
 		{11, 0.512, 0.108, "Emerald Dragon\n|cFF808080(Dream Bough)|r", "worldboss", "60", nil},
 		-- Transport
 		{8, 0.512, 0.135, "Zeppelins to Tirisfal Glades & Grom'Gol", "zepp", "Horde", nil, {{2, 25, "Tirisfal Glades"}, {2, 22, "Grom'Gol"}}},
-		{13, 0.346, 0.244, "Skyship to Zephras Isle", "zepp", "Horde", nil, {1, 26}},
-		{26, 0.620, 0.964, "Skyship to Mulgore", "zepp", "Horde", nil, {1, 13}},
-		{26, 0.680, 0.921, "Skyship to Dalaran", "zepp", "Alliance", nil, {2, 1}},
+		{13, 0.346, 0.244, "Skyship to Zephras Isle", "skyship", "Horde", nil, {1, 26}},
+		{26, 0.620, 0.964, "Skyship to Mulgore", "skyship", "Horde", nil, {1, 13}},
+		{26, 0.680, 0.921, "Skyship to Dalaran", "skyship", "Alliance", nil, {2, 1}},
 		{19, 0.636, 0.389, "Boat to Booty Bay", "boat", "Neutral", nil, {2, 22}},
 		{5, 0.333, 0.399, "Boat to Rut'Theran Village", "boat", "Alliance", nil, {1, 18}},
 		{5, 0.313, 0.406, "Boat to Stormwind Harbor", "boat", "Alliance", nil, {2, 21}},
@@ -201,7 +201,7 @@ MMM_DefaultPoints = {
 		{8, 0.465, 0.357, "Emerald Dragon\n|cFF808080(The Twilight Grove)|r", "worldboss", "60", nil},
 		{24, 0.632, 0.217, "Emerald Dragon\n|cFF808080(Seradane)|r", "worldboss", "60", nil},
 		-- Transport
-		{1, 0.126, 0.520, "Skyship to Zephras Isle", "zepp", "Alliance", nil, {1, 26}},
+		{1, 0.126, 0.520, "Skyship to Zephras Isle", "skyship", "Alliance", nil, {1, 26}},
 		{21, 0.677, 0.325, "Tram to Ironforge", "tram", "Alliance", nil, {2, 14}},
 		{14, 0.762, 0.511, "Tram to Stormwind", "tram", "Alliance", nil, {2, 21}},
 		{29, 0.051, 0.634, "Boat to Auberdine via Southshore", "boat", "Alliance", nil, {2, 13}},
