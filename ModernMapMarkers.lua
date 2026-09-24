@@ -29,9 +29,10 @@ local TEXTURES = {
 	boat      = "Interface\\AddOns\\ModernMapMarkers\\Textures\\boat.tga",
 	tram      = "Interface\\AddOns\\ModernMapMarkers\\Textures\\tram.tga",
 	portal    = "Interface\\AddOns\\ModernMapMarkers\\Textures\\portal.tga",
+	skyship   = "Interface\\AddOns\\ModernMapMarkers\\Textures\\skyship.tga",
 }
 
-local TRANSPORT_KINDS = { boat = true, zepp = true, tram = true, portal = true }
+local TRANSPORT_KINDS = { boat = true, zepp = true, tram = true, portal = true, skyship = true }
 
 -- ============================================================
 -- Cached globals
