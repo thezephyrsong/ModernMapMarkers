@@ -340,6 +340,36 @@ local function SetMap(mapID)
 	if WorldMapFrame.SetMapID then WorldMapFrame:SetMapID(mapID) end
 end
 
+-- Ctrl+Click on any marker (dungeon/raid/worldboss/transport alike): drop the
+-- game's own map pin (the shift-click waypoint arrow) on that marker's exact
+-- spot and start tracking it, instead of the marker's normal left/right click
+-- behaviour.
+local function SetWaypointAtPin(pin)
+	if not (C_Map and C_Map.SetUserWaypoint and pin.waypointMap) then
+		return false
+	end
+	if C_Map.CanSetUserWaypointOnMap and not C_Map.CanSetUserWaypointOnMap(pin.waypointMap) then
+		if UIErrorsFrame then
+			UIErrorsFrame:AddMessage("Can't set a map pin here.", 1, 0.1, 0.1)
+		end
+		return false
+	end
+
+	local mapPointType = Enum and Enum.UIMapPointType and Enum.UIMapPointType.Map
+	local point = {
+		uiMapID      = pin.waypointMap,
+		position     = CreateVector2D(pin.waypointX, pin.waypointY),
+		mapPointType = mapPointType,
+	}
+	C_Map.SetUserWaypoint(point)
+	if C_SuperTrack and C_SuperTrack.SetSuperTrackedUserWaypoint then
+		C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+	end
+	PlayPingSound()
+	return true
+end
+MMM.SetWaypointAtPin = SetWaypointAtPin
+
 -- Called by the destination popup in ModernMapMarkers_UI.lua.
 function MMM.NavigateToTransportDest(destMapID, originMapID)
 	pendingOriginMap = originMapID
@@ -387,7 +417,7 @@ end
 -- Pin creation
 -- ============================================================
 
-local function CreateMapPin(rec, size, texture, mapWidth, mapHeight)
+local function CreateMapPin(rec, size, texture, mapWidth, mapHeight, mapID)
 	local pin = GetMarkerFromPool()
 	local canvas = GetCanvas()
 	pin:SetParent(canvas)
@@ -402,6 +432,11 @@ local function CreateMapPin(rec, size, texture, mapWidth, mapHeight)
 	pin.highlight:SetAllPoints()
 	pin.highlight:SetTexture(texture)
 	pin.highlight:SetAlpha(0)
+
+	-- Own location, kept for the ctrl-click "set map pin" shortcut below.
+	pin.waypointMap = mapID
+	pin.waypointX   = rec.x
+	pin.waypointY   = rec.y
 
 	-- "dropdown" sentinel: comment shown only in Find Marker, not on the map.
 	pin.markerDisplay = nil
@@ -445,6 +480,10 @@ local function CreateMapPin(rec, size, texture, mapWidth, mapHeight)
 		self.highlight:SetAlpha(0)
 	end)
 	pin:SetScript("OnClick", function(self, button)
+		if IsControlKeyDown() then
+			SetWaypointAtPin(self)
+			return
+		end
 		if TRANSPORT_KINDS[self.markerKind] then
 			OnTransportClick(self, button)
 		end
@@ -533,7 +572,7 @@ local function UpdateMarkers()
 		local rec = relevantPoints[i]
 		if ShouldDisplay(db, rec) then
 			local size = TRANSPORT_KINDS[rec.kind] and MARKER_SIZE_SMALL or MARKER_SIZE_LARGE
-			local pin  = CreateMapPin(rec, size, TEXTURES[rec.kind], mapWidth, mapHeight)
+			local pin  = CreateMapPin(rec, size, TEXTURES[rec.kind], mapWidth, mapHeight, mapID)
 			activeMarkersCount = activeMarkersCount + 1
 			activeMarkers[activeMarkersCount] = pin
 		end

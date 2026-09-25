@@ -69,6 +69,9 @@ function MMM.ShowMarkerInfo(owner, name, info, hint)
 	if hint and hint ~= "" then
 		GameTooltip:AddLine(hint, 0.8, 0.8, 0.8, false)
 	end
+	if C_Map and C_Map.SetUserWaypoint then
+		GameTooltip:AddLine("|cFFFFD700Ctrl+Click:|r Set map pin here", 0.8, 0.8, 0.8, false)
+	end
 	GameTooltip:Show()
 end
 
