@@ -602,11 +602,28 @@ local DEFAULTS = {
 	showTransportHints = true,
 }
 
+-- Forever's SavedVariables layer has been seen writing booleans back as the
+-- numbers 1/0 instead of true/false. That is NOT a cosmetic difference in
+-- Lua: unlike most languages, 0 is truthy here (only nil and false are
+-- falsy), so a stored "off" (0) would silently behave as "on" everywhere
+-- we check "if db.showX then", and "not db.showX" toggles would misfire.
+-- Coerce anything we get back to a real boolean before using it.
+local function ToBoolean(value, default)
+	if value == nil    then return default end
+	if value == true  or value == 1 then return true end
+	if value == false or value == 0 then return false end
+	return default
+end
+
 local function InitializeSavedVariables()
 	if not ModernMapMarkersDB then ModernMapMarkersDB = {} end
 	local db = ModernMapMarkersDB
 	for k, v in pairs(DEFAULTS) do
-		if db[k] == nil then db[k] = v end
+		if type(v) == "boolean" then
+			db[k] = ToBoolean(db[k], v)
+		elseif db[k] == nil then
+			db[k] = v
+		end
 	end
 end
 
