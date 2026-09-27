@@ -149,8 +149,8 @@ MMM_DefaultPoints = {
 		-- Transport
 		{8, 0.512, 0.135, "Zeppelins to Tirisfal Glades & Grom'Gol", "zepp", "Horde", nil, {{2, 25, "Tirisfal Glades"}, {2, 22, "Grom'Gol"}}},
 		{13, 0.346, 0.244, "Skyship to Zephras Isle", "skyship", "Horde", nil, {1, 26}},
-		{26, 0.620, 0.964, "Skyship to Mulgore", "skyship", "Horde", nil, {1, 13}},
-		{26, 0.680, 0.921, "Skyship to Dalaran", "skyship", "Alliance", nil, {2, 1}},
+		{26, 0.579, 0.807, "Skyship to Mulgore", "skyship", "Horde", nil, {1, 13}},
+		{26, 0.657, 0.832, "Skyship to Dalaran", "skyship", "Alliance", nil, {2, 1}},
 		{19, 0.636, 0.389, "Boat to Booty Bay", "boat", "Neutral", nil, {2, 22}},
 		{5, 0.333, 0.399, "Boat to Rut'Theran Village", "boat", "Alliance", nil, {1, 18}},
 		{5, 0.313, 0.406, "Boat to Stormwind Harbor", "boat", "Alliance", nil, {2, 21}},
@@ -166,7 +166,7 @@ MMM_DefaultPoints = {
 		-- Dungeons
 		{18, 0.387, 0.833, "Blackrock Depths\n|cFF808080(Searing Gorge)|r", "dungeon", "52-60", 2, "dropdown"},
 		{5, 0.328, 0.365, "Blackrock Depths\n|cFF808080(Burning Steppes)|r", "dungeon", "52-60", 2, "dropdown"},
-		{1, 0.115, 0.508, "City of Dalaran", "dungeon", "28-33", 16},
+		{1, 0.92, 0.557, "City of Dalaran", "dungeon", "28-33", 16},
 		{28, 0.423, 0.726, "The Deadmines", "dungeon", "17-26", 7},
 		{29, 0.545, 0.645, "Excavation Site: Wetlands", "dungeon", "24-29", 16},
 		{7, 0.178, 0.392, "Gnomeregan", "dungeon", "29-38", 9},
