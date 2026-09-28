@@ -166,7 +166,7 @@ MMM_DefaultPoints = {
 		-- Dungeons
 		{18, 0.387, 0.833, "Blackrock Depths\n|cFF808080(Searing Gorge)|r", "dungeon", "52-60", 2, "dropdown"},
 		{5, 0.328, 0.365, "Blackrock Depths\n|cFF808080(Burning Steppes)|r", "dungeon", "52-60", 2, "dropdown"},
-		{1, 0.92, 0.557, "City of Dalaran", "dungeon", "28-33", 16},
+		{1, 0.092, 0.557, "City of Dalaran", "dungeon", "28-33", 16},
 		{28, 0.423, 0.726, "The Deadmines", "dungeon", "17-26", 7},
 		{29, 0.545, 0.645, "Excavation Site: Wetlands", "dungeon", "24-29", 16},
 		{7, 0.178, 0.392, "Gnomeregan", "dungeon", "29-38", 9},
