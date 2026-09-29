@@ -20,7 +20,7 @@ jobs:
       - name: Package Addon
         uses: BigWigsMods/packager@v2
         with:
-          args: -g 1.60.1
+          args: -g 12.1.0,1.60.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
