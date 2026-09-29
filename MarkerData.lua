@@ -142,6 +142,7 @@ MMM_DefaultPoints = {
 		{25, 0.591, 0.592, "The Barrow Deeps", "raid", "60", 16},
 		-- {2, 0.303, 0.281, "The Barrow Deeps", "raid", "60", 16},
 		-- {10, 0.692, 0.050, "The Barrow Deeps", "raid", "60", 16},
+		-- {24, 0.498, 0.473, "The Barrow Deeps", "raid", "60", 16},
 		-- World Bosses
 		{2, 0.535, 0.816, "Azuregos", "worldboss", "60", nil},
 		{1, 0.937, 0.355, "Emerald Dragon\n|cFF808080(Bough Shadow)|r", "worldboss", "60", nil},
