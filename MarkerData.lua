@@ -187,7 +187,7 @@ MMM_DefaultPoints = {
 		{9, 0.258, 0.104, "Stratholme", "dungeon", "58-60", 23},
 		{9, 0.413, 0.170, "Stratholme\n|cFF808080(Back Gate)|r", "dungeon", "58-60", 23},
 		{23, 0.703, 0.55, "The Temple of Atal'Hakkar", "dungeon", "50-60", 24},
-		{22, 0.233, 0.522, "The Drowned City", "dungeon", "35-45", 16},
+		{22, 0.218, 0.284, "The Drowned City", "dungeon", "35-45", 16},
 		{3, 0.429, 0.13, "Uldaman", "dungeon", "41-51", 27},
 		{3, 0.657, 0.438, "Uldaman\n|cFF808080(Back Entrance)|r", "dungeon", "41-51", 27},
 		{5, 0.312, 0.365, "Upper Blackrock Spire\n|cFF808080(Burning Steppes)|r", "dungeon", "55-60", 4, "dropdown"},

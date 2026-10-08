@@ -629,16 +629,17 @@ end
 -- ============================================================
 
 -- Both dropdowns sit over the top-left corner of the map canvas.
-local DROPDOWN_ANCHOR_X = -8
-local DROPDOWN_ANCHOR_Y = -4
+local DROPDOWN_ANCHOR_X = 16
+local DROPDOWN_ANCHOR_Y = 0
 
 local function CreateDropdowns()
 	local filterDropdown = CreateFrame("Frame", "MMMFilterDropdown", WorldMapFrame, "UIDropDownMenuTemplate")
 	local findDropdown   = CreateFrame("Frame", "MMMFindDropdown",   WorldMapFrame, "UIDropDownMenuTemplate")
 
 	local anchor = WorldMapFrame.ScrollContainer or WorldMapFrame
-	filterDropdown:SetPoint("TOPLEFT", anchor, "TOPLEFT", DROPDOWN_ANCHOR_X, DROPDOWN_ANCHOR_Y)
+	filterDropdown:SetPoint("TOPRIGHT", anchor, "TOPRIGHT", DROPDOWN_ANCHOR_X, DROPDOWN_ANCHOR_Y)
 	findDropdown:SetPoint("TOPLEFT", filterDropdown, "BOTTOMLEFT", 0, 0)
+
 
 	local baseLevel = MMM.GetPinLevel() + 10
 	filterDropdown:SetFrameLevel(baseLevel)
