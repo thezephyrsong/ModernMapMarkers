@@ -163,6 +163,29 @@ local function NormalizeDest(dest)
 end
 
 -- ============================================================
+-- Silent HiddenMaps Command Execution
+-- ============================================================
+local isMMMTriggering = false
+
+-- Hook the chat frame to intercept messages ONLY when our flag is true
+local origAddMessage = DEFAULT_CHAT_FRAME.AddMessage
+DEFAULT_CHAT_FRAME.AddMessage = function(frame, text, ...)
+	if isMMMTriggering and type(text) == "string" and text:find("diagnostic map override") then
+		return false -- Drop the message
+	end
+	return origAddMessage(frame, text, ...)
+end
+
+-- Helper wrapper that turns on the filter, runs the command, and turns it off
+local function RunHiddenMapsCommand(arg)
+	if SlashCmdList and SlashCmdList.HIDDENMAPSMAP then
+		isMMMTriggering = true
+		SlashCmdList.HIDDENMAPSMAP(arg)
+		isMMMTriggering = false
+	end
+end
+
+-- ============================================================
 -- Point index
 -- ============================================================
 
@@ -486,9 +509,21 @@ local function CreateMapPin(rec, size, texture, mapWidth, mapHeight, mapID)
 		end
 		if TRANSPORT_KINDS[self.markerKind] then
 			OnTransportClick(self, button)
+			return
 		end
-		-- Dungeon / raid / world boss pins are informational on Forever:
-		-- there is no Atlas/AtlasLoot to open.
+        
+		-- HiddenMaps Integration for Dungeons/Raids
+		if self.markerKind == "dungeon" or self.markerKind == "raid" then
+			local hmQuery = self.atlasID 
+
+			if hmQuery then
+				if not WorldMapFrame:IsShown() then
+					ToggleWorldMap()
+				end
+				-- Run silently using our wrapper
+				RunHiddenMapsCommand(hmQuery)
+			end
+		end
 	end)
 	pin:Show()
 	return pin
@@ -679,6 +714,14 @@ local function TrySetup()
 	if WorldMapFrame.OnMapChanged then
 		hooksecurefunc(WorldMapFrame, "OnMapChanged", function() UpdateMarkers() end)
 	end
+    
+	-- NEW: When you right-click the map to zoom out, automatically clear HiddenMaps
+	if WorldMapFrame.NavigateToParentMap then
+		hooksecurefunc(WorldMapFrame, "NavigateToParentMap", function()
+			RunHiddenMapsCommand("clear")
+		end)
+	end
+
 	WorldMapFrame:HookScript("OnShow", function()
 		lastMapID = 0
 		UpdateMarkers()
