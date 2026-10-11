@@ -186,6 +186,19 @@ local function RunHiddenMapsCommand(arg)
 end
 
 -- ============================================================
+-- ForeverDungeonJournal Lookup
+-- ============================================================
+local fdjLookup = {
+	["ragefire_chasm"] = "rfc",
+	["hall_of_thanes"] = "hall",
+	["deadmines"] = "dm",
+	["ruins_of_lordaeron"] = "ruins",
+	["wailing_caverns_instance"] = "wc",
+	["shadowfang_keep"] = "sfk",
+	["blackfathom_deeps"] = "bfd"
+}
+
+-- ============================================================
 -- Point index
 -- ============================================================
 
@@ -516,7 +529,25 @@ local function CreateMapPin(rec, size, texture, mapWidth, mapHeight, mapID)
 		if self.markerKind == "dungeon" or self.markerKind == "raid" then
 			local hmQuery = self.atlasID 
 
-			if hmQuery then
+			-- Right-Click: Open ForeverDungeonJournal
+			if button == "RightButton" then
+				if SlashCmdList and SlashCmdList.FOREVERDUNGEONJOURNAL then
+					-- Translate the HiddenMaps ID to an FDJ shortcut (or use "" to just open the journal)
+					local fdjQuery = hmQuery and fdjLookup[hmQuery] or ""
+					SlashCmdList.FOREVERDUNGEONJOURNAL(fdjQuery)
+					return
+				end
+				
+				-- Fallback if FDJ is not installed: clear map and zoom out
+				RunHiddenMapsCommand("clear")
+				if WorldMapFrame and WorldMapFrame.NavigateToParentMap then
+					WorldMapFrame:NavigateToParentMap()
+				end
+				return
+			end
+
+			-- Left-Click: Handle the HiddenMaps override
+			if hmQuery and SlashCmdList and SlashCmdList.HIDDENMAPSMAP then
 				if not WorldMapFrame:IsShown() then
 					ToggleWorldMap()
 				end

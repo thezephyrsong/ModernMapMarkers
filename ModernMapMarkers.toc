@@ -8,7 +8,7 @@
 ## X-WoWI-ID: 27222
 ## X-WoWI-Type: Retail
 ## X-Wago-ID: aNervn62
-## OptionalDeps: HiddenMaps
+## OptionalDeps: HiddenMaps, ForeverDungeonJournal
 
 MarkerData.lua
 ModernMapMarkers.lua

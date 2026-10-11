@@ -69,9 +69,24 @@ function MMM.ShowMarkerInfo(owner, name, info, hint)
 	if hint and hint ~= "" then
 		GameTooltip:AddLine(hint, 0.8, 0.8, 0.8, false)
 	end
+	
 	if C_Map and C_Map.SetUserWaypoint then
-		GameTooltip:AddLine("|cFFFFD700Ctrl+Click:|r Set map pin here", 0.8, 0.8, 0.8, false)
+		-- Only show Dungeon/Raid tooltips if it's actually a dungeon or raid pin
+		if owner and (owner.markerKind == "dungeon" or owner.markerKind == "raid") then
+			-- Check if HiddenMaps is installed
+			if SlashCmdList and SlashCmdList.HIDDENMAPSMAP then
+				GameTooltip:AddLine("|cFFFFD700Left Click:|r Open Dungeon Map", 0.8, 0.8, 0.8, false)
+			end
+			-- Check if ForeverDungeonJournal is installed
+			if SlashCmdList and SlashCmdList.FOREVERDUNGEONJOURNAL then
+				GameTooltip:AddLine("|cFFFFD700Right Click:|r Open Dungeon Journal", 0.8, 0.8, 0.8, false)
+			end
+		end
+		
+		-- Always show the waypoint hint since it's a native game feature
+		GameTooltip:AddLine("|cFFFFD700Ctrl+Left Click:|r Set map pin here", 0.8, 0.8, 0.8, false)
 	end
+	
 	GameTooltip:Show()
 end
 
