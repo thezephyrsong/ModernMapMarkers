@@ -119,7 +119,7 @@ MMM_DefaultPoints = {
 	-- -------------------------------------------------------------------------
 	[1] = { -- Kalimdor
 		-- Dungeons
-		{9, 0.758, 0.166, "Alcaz Prison", "dungeon", "48-53", nil},
+		{9, 0.750, 0.140, "Alcaz Prison", "dungeon", "48-53", nil},
 		{1, 0.123, 0.128, "Blackfathom Deeps", "dungeon", "24-32", "blackfathom_deeps"},
 		{2, 0.380, 0.324, "Blackmaw Hold", "dungeon", "55-60", nil},
 		{11, 0.648, 0.303, "Dire Maul - East", "dungeon", "55-58", "dire_maul_east"},
@@ -170,7 +170,7 @@ MMM_DefaultPoints = {
 		{7, 0.178, 0.392, "Gnomeregan", "dungeon", "29-38", "gnomeregan"},
 		{7, 0.216, 0.30, "Gnomeregan\n|cFF808080(Workshop Entrance)|r", "dungeon", "29-38", "gnomeregan_approach"},
 		{14, 0.448, 0.523, "Hall of Thanes", "dungeon", "13-18", "hall_of_thanes"},
-		{30, 0.528, 0.198, "Krol'dok Stronghold", "dungeon", "40-45", nil},
+		{30, 0.379, 0.376, "Krol'dok Stronghold", "dungeon", "40-45", nil},
 		{5, 0.32, 0.39, "Lower Blackrock Spire\n|cFF808080(Burning Steppes)|r", "dungeon", "55-60", "lower_blackrock_spire", "dropdown"},
 		{18, 0.379, 0.858, "Lower Blackrock Spire\n|cFF808080(Searing Gorge)|r", "dungeon", "55-60", "lower_blackrock_spire", "dropdown"},
 		{25, 0.646, 0.688, "Ruins of Lordaeron", "dungeon", "15-20", "ruins_of_lordaeron"},
