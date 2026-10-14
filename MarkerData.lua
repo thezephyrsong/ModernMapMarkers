@@ -17,8 +17,7 @@
 --   type     : "dungeon", "raid", "worldboss", "boat", "zepp", "tram", "skyship" & "portal"
 --   info     : level range, examples: "52-60" or "60"
 --              faction string: "Alliance", "Horde" & "Neutral"
---   atlasID  : kept for compatibility with the 3.3.5a data; unused on Forever
---              (there is no Atlas/AtlasLoot there). Use nil for new entries.
+--   dungeonID : used for dungeons and raids
 --   slot8    : optional, one of:
 --
 --              - Transport destination(s) -- boat / zepp / tram / portal only:
@@ -42,6 +41,8 @@
 --              - "dropdown" -- the marker comment is shown only in the
 --                              Find Marker panel, not on the world map
 --                              hover tooltip
+--              - Floor number --  dungeon / raid only:
+--                  		opens the dungeon map on that floor instead of its default
 --
 -- ============================================================
 -- Continent IDs
@@ -119,9 +120,9 @@ MMM_DefaultPoints = {
 	-- -------------------------------------------------------------------------
 	[1] = { -- Kalimdor
 		-- Dungeons
-		{9, 0.750, 0.140, "Alcaz Prison", "dungeon", "48-53", nil},
+		{9, 0.750, 0.140, "Alcaz Prison", "dungeon", "48-53", "alcaz_prison"},
 		{1, 0.123, 0.128, "Blackfathom Deeps", "dungeon", "24-32", "blackfathom_deeps"},
-		{2, 0.380, 0.324, "Blackmaw Hold", "dungeon", "55-60", nil},
+		{2, 0.380, 0.324, "Blackmaw Hold", "dungeon", "55-60", "blackmaw_hold"},
 		{11, 0.648, 0.303, "Dire Maul - East", "dungeon", "55-58", "dire_maul_east"},
 		{11, 0.771, 0.369, "Dire Maul - East\n|cFF808080(The Hidden Reach)|r", "dungeon", "55-58", "dire_maul_east"},
 		{11, 0.671, 0.34, "Dire Maul - East\n|cFF808080(Side Entrance)|r", "dungeon", "55-58", "dire_maul_exterior"},
@@ -131,15 +132,15 @@ MMM_DefaultPoints = {
 		{14, 0.53, 0.486, "Ragefire Chasm", "dungeon", "13-18", "ragefire_chasm"},
 		{19, 0.508, 0.94, "Razorfen Downs", "dungeon", "37-46", "razorfen_downs"},
 		{19, 0.423, 0.9, "Razorfen Kraul", "dungeon", "29-38", "razorfen_kraul"},
-		{23, 0.426, 0.061, "Shaper's Terrace", "dungeon", "58-60", nil},
+		{23, 0.426, 0.061, "Shaper's Terrace", "dungeon", "58-60", "shapers_terrace"},
 		{19, 0.462, 0.357, "Wailing Caverns", "dungeon", "17-24", "wailing_caverns_instance"},
 		{17, 0.389, 0.184, "Zul'Farrak", "dungeon", "44-54", "zul_farrak"},
 		-- Raids
-		{25, 0.890, 0.324, "Hyjal Summit", "raid", "60", nil},
-		{9, 0.529, 0.777, "Onyxia's Lair", "raid", "60", nil},
-		{15, 0.305, 0.987, "Ruins of Ahn'Qiraj", "raid", "60", nil},
-		{15, 0.269, 0.987, "Temple of Ahn'Qiraj", "raid", "60", nil},
-		{25, 0.591, 0.592, "The Barrow Deeps", "raid", "60", nil},
+		{25, 0.890, 0.324, "Hyjal Summit", "raid", "60", "hyjal_summit"},
+		{9, 0.529, 0.777, "Onyxia's Lair", "raid", "60", "onyxias_lair"},
+		{15, 0.305, 0.987, "Ruins of Ahn'Qiraj", "raid", "60", "ruins_of_ahnqiraj"},
+		{15, 0.269, 0.987, "Temple of Ahn'Qiraj", "raid", "60", "temple_of_ahnqiraj"},
+		{25, 0.591, 0.592, "The Barrow Deeps", "raid", "60", "barrow_deeps"},
 		-- World Bosses
 		{2, 0.535, 0.816, "Azuregos", "worldboss", "60", nil},
 		{1, 0.937, 0.355, "Emerald Dragon\n|cFF808080(Bough Shadow)|r", "worldboss", "60", nil},
@@ -164,13 +165,13 @@ MMM_DefaultPoints = {
 		-- Dungeons
 		{18, 0.387, 0.833, "Blackrock Depths\n|cFF808080(Searing Gorge)|r", "dungeon", "52-60", "blackrock_depths", "dropdown"},
 		{5, 0.328, 0.365, "Blackrock Depths\n|cFF808080(Burning Steppes)|r", "dungeon", "52-60", "blackrock_depths", "dropdown"},
-		{1, 0.090, 0.600, "City of Dalaran", "dungeon", "28-33", nil},
+		{1, 0.090, 0.600, "City of Dalaran", "dungeon", "28-33", "city_of_dalaran"},
 		{28, 0.423, 0.726, "The Deadmines", "dungeon", "17-26", "deadmines"},
 		{29, 0.545, 0.645, "Excavation Site: Wetlands", "dungeon", "24-29", "excavation_site_wetlands"},
 		{7, 0.178, 0.392, "Gnomeregan", "dungeon", "29-38", "gnomeregan"},
 		{7, 0.216, 0.30, "Gnomeregan\n|cFF808080(Workshop Entrance)|r", "dungeon", "29-38", "gnomeregan_approach"},
 		{14, 0.448, 0.523, "Hall of Thanes", "dungeon", "13-18", "hall_of_thanes"},
-		{30, 0.379, 0.376, "Krol'dok Stronghold", "dungeon", "40-45", nil},
+		{30, 0.379, 0.376, "Krol'dok Stronghold", "dungeon", "40-45", "kroldok_stronghold"},
 		{5, 0.32, 0.39, "Lower Blackrock Spire\n|cFF808080(Burning Steppes)|r", "dungeon", "55-60", "lower_blackrock_spire", "dropdown"},
 		{18, 0.379, 0.858, "Lower Blackrock Spire\n|cFF808080(Searing Gorge)|r", "dungeon", "55-60", "lower_blackrock_spire", "dropdown"},
 		{25, 0.646, 0.688, "Ruins of Lordaeron", "dungeon", "15-20", "ruins_of_lordaeron"},
@@ -181,20 +182,20 @@ MMM_DefaultPoints = {
 		{27, 0.69, 0.729, "Scholomance", "dungeon", "58-60", "scholomance"},
 		{20, 0.448, 0.678, "Shadowfang Keep", "dungeon", "22-30", "shadowfang_keep"},
 		{21, 0.508, 0.67, "The Stockade", "dungeon", "24-32", "stockade"},
-		{9, 0.258, 0.104, "Stratholme", "dungeon", "58-60", "stratholme"},
-		{9, 0.413, 0.170, "Stratholme\n|cFF808080(Back Gate)|r", "dungeon", "58-60", "stratholme"},
+		{9, 0.258, 0.104, "Stratholme", "dungeon", "58-60", "stratholme", 1},
+		{9, 0.413, 0.170, "Stratholme\n|cFF808080(Back Gate)|r", "dungeon", "58-60", "stratholme", 2},
 		{23, 0.703, 0.55, "The Temple of Atal'Hakkar", "dungeon", "50-60", "sunken_temple"},
-		{22, 0.218, 0.284, "The Drowned City", "dungeon", "35-45", nil},
+		{22, 0.218, 0.284, "The Drowned City", "dungeon", "35-45", "the_drowned_city"},
 		{3, 0.429, 0.13, "Uldaman", "dungeon", "41-51", "uldaman"},
 		{3, 0.657, 0.438, "Uldaman\n|cFF808080(Back Entrance)|r", "dungeon", "41-51", "uldaman_approach"},
 		{5, 0.312, 0.365, "Upper Blackrock Spire\n|cFF808080(Burning Steppes)|r", "dungeon", "55-60", "upper_blackrock_spire", "dropdown"},
 		{18, 0.371, 0.833, "Upper Blackrock Spire\n|cFF808080(Searing Gorge)|r", "dungeon", "55-60", "upper_blackrock_spire", "dropdown"},
 		-- Raids
-		{18, 0.332, 0.833, "Blackwing Lair\n|cFF808080(Searing Gorge)|r", "raid", "60", nil, "dropdown"},
-		{5, 0.273, 0.363, "Blackwing Lair\n|cFF808080(Burning Steppes)|r", "raid", "60", nil, "dropdown"},
-		{18, 0.332, 0.86, "Molten Core\n|cFF808080(Searing Gorge)|r", "raid", "60", nil, "dropdown"},
-		{5, 0.273, 0.39, "Molten Core\n|cFF808080(Burning Steppes)|r", "raid", "60", nil, "dropdown"},
-		{22, 0.53, 0.172, "Zul'Gurub", "raid", "60", nil},
+		{18, 0.332, 0.833, "Blackwing Lair\n|cFF808080(Searing Gorge)|r", "raid", "60", "blackwing_lair", "dropdown"},
+		{5, 0.273, 0.363, "Blackwing Lair\n|cFF808080(Burning Steppes)|r", "raid", "60", "blackwing_lair", "dropdown"},
+		{18, 0.332, 0.86, "Molten Core\n|cFF808080(Searing Gorge)|r", "raid", "60", "molten_core", "dropdown"},
+		{5, 0.273, 0.39, "Molten Core\n|cFF808080(Burning Steppes)|r", "raid", "60", "molten_core", "dropdown"},
+		{22, 0.53, 0.172, "Zul'Gurub", "raid", "60", "zul_gurub"},
 		-- World Bosses
 		{8, 0.465, 0.357, "Emerald Dragon\n|cFF808080(The Twilight Grove)|r", "worldboss", "60", nil},
 		{24, 0.632, 0.217, "Emerald Dragon\n|cFF808080(Seradane)|r", "worldboss", "60", nil},
@@ -214,26 +215,3 @@ MMM_DefaultPoints = {
 	},
 	-- -------------------------------------------------------------------------
 }
-
--- ============================================================
--- Forever additions -- NOT filled in yet (coordinates unknown).
--- Stand on the entrance in game and run /mmm here, then paste the
--- printed line into the matching continent above. Zones are from
--- Wowhead's Forever dungeon guide; level bands from its table.
--- ============================================================
---
---  Kalimdor
---    Blackmaw Hold        Azshara (1447), north, behind the Furbolg Gates   dungeon 55-60
---    Alcaz Prison         Dustwallow Marsh (1445), Alcaz Island             dungeon 48-53
---    Shaper's Terrace     Un'Goro Crater (1449)                             dungeon 58-60
---    Hyjal Summit         Mount Hyjal (2482)                                raid    (20-player)
---  Eastern Kingdoms
---    The Hall of Thanes   Ironforge (1455), under the city (Alliance)       dungeon 13-18
---    Ruins of Lordaeron   Undercity/Tirisfal area (Horde)                   dungeon 15-20
---    Excavation Site      Wetlands (1437), above Whelgar's Excavation Site  dungeon 24-29
---    City of Dalaran      location not confirmed                            dungeon 28-33
---    The Drowned City     off the coast of Stranglethorn Vale (1434)        dungeon 35-40
---    Krol'dok Stronghold  Riverglades (2548)                                dungeon 40-45
---  Unknown: Barrow Deeps (10-player raid)
---  New regions: Zephras Isle 2521, Darkspear Islands 2524, Riverglades 2548,
---               Shen'dralas 2652, Mount Hyjal 2482

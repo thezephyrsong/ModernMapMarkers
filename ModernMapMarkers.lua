@@ -163,29 +163,6 @@ local function NormalizeDest(dest)
 end
 
 -- ============================================================
--- Silent HiddenMaps Command Execution
--- ============================================================
-local isMMMTriggering = false
-
--- Hook the chat frame to intercept messages ONLY when our flag is true
-local origAddMessage = DEFAULT_CHAT_FRAME.AddMessage
-DEFAULT_CHAT_FRAME.AddMessage = function(frame, text, ...)
-	if isMMMTriggering and type(text) == "string" and text:find("diagnostic map override") then
-		return false -- Drop the message
-	end
-	return origAddMessage(frame, text, ...)
-end
-
--- Helper wrapper that turns on the filter, runs the command, and turns it off
-local function RunHiddenMapsCommand(arg)
-	if SlashCmdList and SlashCmdList.HIDDENMAPSMAP then
-		isMMMTriggering = true
-		SlashCmdList.HIDDENMAPSMAP(arg)
-		isMMMTriggering = false
-	end
-end
-
--- ============================================================
 -- ForeverDungeonJournal Lookup
 -- ============================================================
 local fdjLookup = {
@@ -224,6 +201,7 @@ local function BuildPointIndex()
 					atlasID   = p[7],
 					noList    = (slot == "nolist"),
 					dropdown  = (slot == "dropdown"),
+					floor     = (type(slot) == "number") and slot or nil,
 				}
 				local keep = true
 				if TRANSPORT_KINDS[p[5]] then
@@ -310,6 +288,7 @@ local function ReturnMarkerToPool(marker)
 	marker.markerHint    = nil
 	marker.markerKind    = nil
 	marker.atlasID       = nil
+	marker.dungeonFloor  = nil
 	marker.dests         = nil
 	marker.destMode      = nil
 	marker.originalSize  = nil
@@ -484,6 +463,7 @@ local function CreateMapPin(rec, size, texture, mapWidth, mapHeight, mapID)
 	pin.markerInfo = rec.info
 	pin.markerKind = rec.kind
 	pin.atlasID    = rec.atlasID
+	pin.dungeonFloor = rec.floor
 	pin.dests      = rec.dests
 	pin.destMode   = rec.destMode
 	pin.markerHint = nil
@@ -525,34 +505,36 @@ local function CreateMapPin(rec, size, texture, mapWidth, mapHeight, mapID)
 			return
 		end
         
-		-- HiddenMaps Integration for Dungeons/Raids
+		-- Left-Click: Show the Dungeon/Raid Map overlay
 		if self.markerKind == "dungeon" or self.markerKind == "raid" then
-			local hmQuery = self.atlasID 
+			local journalID = self.atlasID
+			
+			-- Handle Left-Click: Show the native Dungeon Map overlay
+			if button == "LeftButton" then
+				print("MMM Debug: Left-clicked", self.markerName, "- Journal ID:", journalID)
+				
+				if MMM.ShowDungeonMapByID then
+					print("MMM Debug: Function exists, calling it now...")
+					MMM.ShowDungeonMapByID(journalID, self.dungeonFloor or 1)
+				else
+					print("MMM Debug: ERROR - MMM.ShowDungeonMapByID is nil!")
+				end
+			end
 
-			-- Right-Click: Open ForeverDungeonJournal
+			-- Right-Click: Open ForeverDungeonJournal (Standard behavior)
 			if button == "RightButton" then
 				if SlashCmdList and SlashCmdList.FOREVERDUNGEONJOURNAL then
-					-- Translate the HiddenMaps ID to an FDJ shortcut (or use "" to just open the journal)
-					local fdjQuery = hmQuery and fdjLookup[hmQuery] or ""
+					local fdjQuery = journalID and fdjLookup[journalID] or ""
 					SlashCmdList.FOREVERDUNGEONJOURNAL(fdjQuery)
 					return
 				end
 				
 				-- Fallback if FDJ is not installed: clear map and zoom out
-				RunHiddenMapsCommand("clear")
+				if MMM.HideDungeonMap then MMM.HideDungeonMap() end
 				if WorldMapFrame and WorldMapFrame.NavigateToParentMap then
 					WorldMapFrame:NavigateToParentMap()
 				end
 				return
-			end
-
-			-- Left-Click: Handle the HiddenMaps override
-			if hmQuery and SlashCmdList and SlashCmdList.HIDDENMAPSMAP then
-				if not WorldMapFrame:IsShown() then
-					ToggleWorldMap()
-				end
-				-- Run silently using our wrapper
-				RunHiddenMapsCommand(hmQuery)
 			end
 		end
 	end)
@@ -746,10 +728,10 @@ local function TrySetup()
 		hooksecurefunc(WorldMapFrame, "OnMapChanged", function() UpdateMarkers() end)
 	end
     
-	-- NEW: When you right-click the map to zoom out, automatically clear HiddenMaps
+	-- NEW: When you right-click the map to zoom out, automatically clear the dungeon map overlay
 	if WorldMapFrame.NavigateToParentMap then
 		hooksecurefunc(WorldMapFrame, "NavigateToParentMap", function()
-			RunHiddenMapsCommand("clear")
+			if MMM.HideDungeonMap then MMM.HideDungeonMap() end
 		end)
 	end
 

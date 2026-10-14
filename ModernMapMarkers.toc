@@ -22,5 +22,6 @@
 ## OptionalDeps: HiddenMaps, ForeverDungeonJournal
 
 MarkerData.lua
+ModernMapMarkers_Dungeons.lua
 ModernMapMarkers.lua
 ModernMapMarkers_UI.lua
