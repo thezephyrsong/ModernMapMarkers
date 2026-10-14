@@ -4,7 +4,7 @@ A lightweight addon that places markers on the world map for dungeons, raids, wo
 
 ***Still in beta - finding accurate locations for endgame raids is hard at level 20 but will try to sort asap***
 
-Integration with [HiddenMaps](https://www.curseforge.com/wow/addons/hiddenmaps) for Dungeon Maps and [DungeonJournal](https://www.curseforge.com/wow/addons/dungeonjournal) for loot drops
+Integration with [DungeonJournal](https://www.curseforge.com/wow/addons/dungeonjournal) for loot drops
 
 ## ✨ **Features**
 
