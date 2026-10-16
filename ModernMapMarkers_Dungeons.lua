@@ -39,9 +39,9 @@ local DUNGEON_MAPS = {
     ["scarlet_cathedral"]        = { folder = "ScarletMonastery",     pattern = "f_t", floors = { 1, 2, 3, 4 }, name = "Scarlet Monastery", defaultFloor = 4 },
     
     -- Dire Maul Wings
-    ["dire_maul_west"]           = { folder = "DireMaul",             pattern = "f_t", floors = { 1, 2, 3, 4, 5, 6 }, name = "Dire Maul", defaultFloor = 1 },
-    ["dire_maul_east"]           = { folder = "DireMaul",             pattern = "f_t", floors = { 1, 2, 3, 4, 5, 6 }, name = "Dire Maul", defaultFloor = 2 },
-    ["dire_maul_north"]          = { folder = "DireMaul",             pattern = "f_t", floors = { 1, 2, 3, 4, 5, 6 }, name = "Dire Maul", defaultFloor = 3 },
+    ["dire_maul_west"]           = { folder = "DireMaul",             pattern = "f_t", floors = { 2, 3, 4 }, name = "Dire Maul", defaultFloor = 2 },
+    ["dire_maul_east"]           = { folder = "DireMaul",             pattern = "f_t", floors = { 5, 6 }, name = "Dire Maul", defaultFloor = 5 },
+    ["dire_maul_north"]          = { folder = "DireMaul",             pattern = "f_t", floors = { 1 }, name = "Dire Maul", defaultFloor = 1 },
     ["dire_maul_exterior"]       = { folder = "DireMaul",             pattern = "f_t", floors = { 1, 2, 3, 4, 5, 6 }, name = "Dire Maul", defaultFloor = 1 },
     
     -- Blackrock Spire (Lower vs Upper)

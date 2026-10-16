@@ -3,7 +3,7 @@
 -- Entry format
 -- ============================================================
 --
---   { zoneID, x, y, name, type, info, atlasID [, slot8] }
+--   { zoneID, x, y, name, type, info, dungeonID [, slot8] }
 --
 --   zoneID   : EITHER the old 3.3.5a zone index within the continent (1-53;
 --              translated to a uiMapID by MMM_ZoneToUiMap below), OR a raw
@@ -211,6 +211,8 @@ MMM_DefaultPoints = {
 		{22, 0.312, 0.298, "Zeppelins to Tirisfal Glades & Durotar", "zepp", "Horde", nil, {{2, 25, "Tirisfal Glades"}, {1, 8, "Durotar"}}},
 		{21, 0.216, 0.562, "Boat to Auberdine", "boat", "Alliance", nil, {1, 5}},
 		{30, 0.798, 0.512, "Boat to Steamwheedle Port", "boat", "Neutral", nil, {1, 17}},
+		{1, 0.120, 0.562, "Portal to Stormwind\n|cFF808080(Skyborne Only)|r", "portal", "Alliance", nil, {2, 21}},
+		{21, 0.500, 0.870, "Portal to Dalaran\n|cFF808080(Skyborne Only)|r", "portal", "Alliance", nil, {2, 1}},
 
 	},
 	-- -------------------------------------------------------------------------
