@@ -12,7 +12,7 @@ MMM = MMM or {}
 local DUNGEON_MAPS = {
     -- Base Vanilla Dungeons
     ["ragefire_chasm"]           = { folder = "Ragefire",             pattern = "f_t", floors = { 1 }, name = "Ragefire Chasm" },
-    ["wailing_caverns_instance"] = { folder = "WailingCaverns",       pattern = "f_t", floors = { 1 }, name = "Wailing Caverns" },
+    ["wailing_caverns_instance"] = { folder = "WailingCaverns",       pattern = "f_t", floors = { 1 }, name = "Wailing Caverns", customPath = true },
     ["deadmines"]                = { folder = "TheDeadmines",         pattern = "f_t", floors = { 1, 2 }, name = "The Deadmines" },
     ["shadowfang_keep"]          = { folder = "ShadowfangKeep",       pattern = "f_t", floors = { 1, 2, 3, 4, 5, 6, 7 }, name = "Shadowfang Keep" },
     ["blackfathom_deeps"]        = { folder = "BlackFathomDeeps",     pattern = "f_t", floors = { 1, 2, 3 }, name = "Blackfathom Deeps" },
@@ -25,7 +25,7 @@ local DUNGEON_MAPS = {
     ["zul_farrak"]               = { folder = "ZulFarrak",            pattern = "t",   floors = { 1 }, name = "Zul'Farrak" },
     ["scholomance"]              = { folder = "Scholomance",          pattern = "f_t", floors = { 1, 2, 3, 4 }, name = "Scholomance" },
     ["blackrock_depths"]         = { folder = "BlackrockDepths",      pattern = "f_t", floors = { 1, 2 }, name = "Blackrock Depths" },
-    ["sunken_temple"]            = { folder = "TheTempleofAtalhakkar",pattern = "f_t", floors = { 1 }, name = "The Temple of Atal'hakkar" },
+    ["sunken_temple"]            = { folder = "TheTempleofAtalhakkar",pattern = "f_t", floors = { 1, 2, 3, 4, 5 }, name = "The Temple of Atal'hakkar", defaultFloor = 2, customFloors = { [2] = true, [3] = true, [4] = true, [5] = true, } },
     ["stratholme"]               = { folder = "Stratholme",           pattern = "f_t", floors = { 1, 2 }, name = "Stratholme" },
 
     -- Uldaman

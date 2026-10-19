@@ -386,11 +386,11 @@ MMM_InstancePins = {
 	},
 	["excavation_site_wetlands"] = {
 		[1] = {
-			{"entrance", 0.889, 0.258},
-			{"boss", 0.550, 0.360, 260322, "Saltspine", false, 144209, 1},
-			{"boss", 0.325, 0.700, 260326, "Relic Guardian", false, 144224, 1},
-			{"boss", 0.305, 0.480, 260325, "Shadetooth", false, 144210, 1},
-			{"boss", 0.770, 0.220, 260808, "Highland Horror", 28, 9010, 1},
+			{"entrance", 0.075, 0.650},
+			{"boss", 0.475, 0.500, 260322, "Saltspine", false, 144209, 1},
+			{"boss", 0.600, 0.260, 260326, "Relic Guardian", false, 144224, 1},
+			{"boss", 0.738, 0.500, 260325, "Shadetooth", false, 144210, 1},
+			{"boss", 0.870, 0.710, 260808, "Highland Horror", 28, 9010, 1},
 		},
 	},
 	["gnomeregan"] = {  -- [seq] floors assumed to follow source IDs in order; verify in-game
@@ -406,6 +406,7 @@ MMM_InstancePins = {
 			{"level", 0.430, 0.830, 1, true},
 			{"level", 0.640, 0.580, 1, true},
 			{"boss", 0.755, 0.450, 7079, "Viscous Fallout", 30, 5497, 1},
+			{"boss", 0.245, 0.700, 6235, "Electrocutioner 6000", 32, 6915, 1},
 		},
 		[3] = {
 			{"entrance", 0.870, 0.480},
@@ -417,7 +418,6 @@ MMM_InstancePins = {
 		[4] = {
 			{"level", 0.481, 0.540, 3, true},
 			{"level", 0.710, 0.773, 3, true},
-			{"boss", 0.508, 0.331, 6235, "Electrocutioner 6000", 32, 6915, 1},
 			{"boss", 0.295, 0.540, 6228, "Dark Iron Ambassador", 41, 6669, 2},
 			{"boss", 0.313, 0.300, 7800, "Mekgineer Thermaplugg", 34, 6980, 1},
 		},
@@ -633,7 +633,7 @@ MMM_InstancePins = {
 	},
 	["sunken_temple"] = {
 		[1] = {
-			{"entrance", 0.500, 0.110},
+			{"level", 0.600, 0.150, 2},
 			{"boss", 0.525, 0.450, 5721, "Dreamscythe", 53, 7553, 1},
 			{"boss", 0.470, 0.450, 5720, "Weaver", 51, 6375, 1},
 			{"boss", 0.451, 0.585, 5713, "Gasher", 51, 6698, 1},
@@ -647,8 +647,38 @@ MMM_InstancePins = {
 			{"boss", 0.491, 0.845, 5719, "Morphaz", 52, 7975, 1},
 			{"boss", 0.448, 0.851, 5722, "Hazzas", 53, 9584, 1},
 			{"boss", 0.686, 0.874, 5709, "Shade of Eranikus", 55, 7806, 1},
-			{"boss", 0.501, 0.358, 8580, "Atal'alarion <Guardian of the Idol>", 50, 7873, 1},
 			{"boss", 0.240, 0.457, 8443, "Avatar of Hakkar", 49, 8053, 1},
+		},
+		[2] = {
+			{"entrance", 0.500, 0.250},
+			{"level", 0.700, 0.200, 1},
+			{"level", 0.305, 0.200, 3},
+			{"level", 0.290, 0.450, 5},
+			{"level", 0.745, 0.450, 5},
+			{"level", 0.300, 0.490, 4},
+			{"level", 0.700, 0.500, 4},
+		},
+		[3] = {
+			{"level", 0.390, 0.310, 2},
+			{"boss", 0.501, 0.785, 8580, "Atal'alarion <Guardian of the Idol>", 50, 7873, 1},
+		},
+		[4] = {
+			{"level", 0.380, 0.175, 2},
+			{"level", 0.590, 0.145, 2},
+			{"level", 0.420, 0.748, 5},
+			{"level", 0.630, 0.725, 5},
+		},
+		[5] = {
+			{"level", 0.315, 0.125, 2},
+			{"level", 0.660, 0.125, 2},
+			{"level", 0.330, 0.930, 4},
+			{"level", 0.690, 0.920, 4},
+			{"boss", 0.415, 0.700, 5713, "Gasher", 51, 6698, 1},
+			{"boss", 0.585, 0.700, 5714, "Loro", 51, 6700, 1},
+			{"boss", 0.335, 0.500, 5715, "Hukku", 52, 6702, 1},
+			{"boss", 0.655, 0.500, 5712, "Zolo", 51, 6699, 1},
+			{"boss", 0.415, 0.275, 5717, "Mijan", 52, 6707, 1},
+			{"boss", 0.585, 0.275, 5716, "Zul'Lor", 52, 6701, 1},
 		},
 	},
 	["the_drowned_city"] = {  -- placeholder, no pin data yet
@@ -691,9 +721,7 @@ MMM_InstancePins = {
 			{"boss", 0.555, 0.475, 5775, "Verdan the Everliving", 21, 4256, 1},
 			{"boss", 0.642, 0.410, 5912, "Deviate Faerie Dragon", 20, 1267, 2},
 			{"boss", 0.338, 0.133, 3654, "Mutanus the Devourer", 22, 4088, 1},
-			{"boss", 0.300, 0.300, 3671, "Lady Anacondra <Fanglord>", 20, 4313, 1},
-			{"boss", 0.310, 0.430, 3671, "Lady Anacondra <Fanglord>", 20, 4313, 1},
-			{"boss", 0.460, 0.440, 3671, "Lady Anacondra <Fanglord>", 20, 4313, 1},
+			{"boss", 0.920, 0.537, 5912, "Deviate Faerie Dragon", 20, 1267, 2},
 		},
 	},
 	["zul_farrak"] = {
