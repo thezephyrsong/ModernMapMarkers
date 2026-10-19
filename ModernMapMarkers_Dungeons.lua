@@ -24,7 +24,7 @@ local DUNGEON_MAPS = {
     ["maraudon"]                 = { folder = "Maraudon",             pattern = "f_t", floors = { 1, 2 }, name = "Maraudon" },
     ["zul_farrak"]               = { folder = "ZulFarrak",            pattern = "t",   floors = { 1 }, name = "Zul'Farrak" },
     ["scholomance"]              = { folder = "Scholomance",          pattern = "f_t", floors = { 1, 2, 3, 4 }, name = "Scholomance" },
-    ["blackrock_depths"]         = { folder = "BlackrockDepths",      pattern = "f_t", floors = { 1, 2 }, name = "Blackrock Depths" },
+    ["blackrock_depths"]         = { folder = "BlackrockDepths",      pattern = "f_t", floors = { 1, 2 }, name = "Blackrock Depths", defaultFloor = 1, customFloors = { [1] = true } },
     ["sunken_temple"]            = { folder = "TheTempleofAtalhakkar",pattern = "f_t", floors = { 1, 2, 3, 4, 5 }, name = "The Temple of Atal'hakkar", defaultFloor = 2, customFloors = { [2] = true, [3] = true, [4] = true, [5] = true, } },
     ["stratholme"]               = { folder = "Stratholme",           pattern = "f_t", floors = { 1, 2 }, name = "Stratholme" },
 
