@@ -61,13 +61,17 @@ local DUNGEON_MAPS = {
     ["ruins_of_lordaeron"]       = { folder = "RuinsOfLordaeron",     pattern = "f_t", floors = { 1 }, name = "Ruins of Lordaeron", customPath = true },
     ["excavation_site_wetlands"] = { folder = "ExcavationSiteWetlands", pattern = "f_t", floors = { 1 }, name = "Excavation Site: Wetlands", customPath = true },
     ["city_of_dalaran"]          = { folder = "CityOfDalaran",        pattern = "f_t", floors = { 1,2 }, name = "City of Dalaran", customPath = true },
-    ["the_drowned_city"]         = { folder = "TheDrownedCity",       pattern = "f_t", floors = { 1 }, name = "The Drowned City", customPath = true },
-    ["kroldok_stronghold"]       = { folder = "KroldokStronghold",    pattern = "f_t", floors = { 1 }, name = "Krol'dok Stronghold", customPath = true },
-    ["alcaz_prison"]             = { folder = "AlcazPrison",          pattern = "f_t", floors = { 1 }, name = "Alcaz Prison", customPath = true },
-    ["blackmaw_hold"]            = { folder = "BlackmawHold",         pattern = "f_t", floors = { 1 }, name = "Blackmaw Hold", customPath = true },
-    ["shapers_terrace"]          = { folder = "ShapersTerrace",       pattern = "f_t", floors = { 1 }, name = "Shaper’s Terrace", customPath = true },
+    ["the_drowned_city"]         = { folder = "TheDrownedCity",       pattern = "f_t", floors = { 1 }, name = "The Drowned City", customPath = true, comingSoon = true },
+    ["kroldok_stronghold"]       = { folder = "KroldokStronghold",    pattern = "f_t", floors = { 1 }, name = "Krol'dok Stronghold", customPath = true, comingSoon = true },
+    ["alcaz_prison"]             = { folder = "AlcazPrison",          pattern = "f_t", floors = { 1 }, name = "Alcaz Prison", customPath = true, comingSoon = true },
+    ["blackmaw_hold"]            = { folder = "BlackmawHold",         pattern = "f_t", floors = { 1 }, name = "Blackmaw Hold", customPath = true, comingSoon = true },
+    ["shapers_terrace"]          = { folder = "ShapersTerrace",       pattern = "f_t", floors = { 1 }, name = "Shaper’s Terrace", customPath = true, comingSoon = true },
 }
 
+
+-- Instances whose map art isn't available yet (no DUNGEON_MAPS entry, or flagged comingSoon above)
+local COMING_SOON_IDS = { hyjal_summit = true, barrow_deeps = true }
+local COMING_SOON_MSG = "|cff7fff7fModernMapMarkers:|r Map data coming soon from Santiago Reyes - https://asguevara433.wixsite.com/srmaps/post/proyecto-atlas-de-azeroth-forever"
 
 local function GetDungeonTilePath(data, floor, tile)
     local folder = data.folder
@@ -108,6 +112,7 @@ local CONTENT_W, CONTENT_H, TILE_PX = 1002, 668, 256
 
 local overlay
 local currentMapData
+local RefreshPins -- defined in the instance pins section below
 
 local function layoutTiles()
     if not overlay then return end
@@ -145,8 +150,7 @@ local function layoutTiles()
         t:SetSize(cw * s, ch * s)
     end
     
-    -- Hook your marker rendering here if needed:
-    -- if MMM.RenderMarkers then MMM.RenderMarkers(overlay) end
+    if RefreshPins then RefreshPins() end
 end
 
 local function ensureOverlay()
@@ -202,6 +206,7 @@ local function SetFloor(idx)
     if not currentMapData or not overlay then return end
     idx = math.max(1, math.min(idx, #currentMapData.floors))
     local floor = currentMapData.floors[idx]
+    overlay.floorIdx = idx
     
     for i = 1, NTILE do
         local t = overlay.tiles[i]
@@ -211,6 +216,169 @@ local function SetFloor(idx)
     
     if overlay.floorDropdown and overlay.floorDropdown.SetDefaultText then 
         overlay.floorDropdown:SetDefaultText("Floor " .. idx) 
+    end
+    
+    if RefreshPins then RefreshPins() end
+end
+
+-- ==========================================
+-- 3b. INSTANCE PINS (bosses / floor changes / entrances)
+-- ==========================================
+-- Data lives in MarkerData.lua (MMM_InstancePins, keyed by DUNGEON_MAPS id).
+local PIN_TEX = {
+    boss     = "Interface\\AddOns\\ModernMapMarkers\\Textures\\boss",
+    entrance = "Interface\\AddOns\\ModernMapMarkers\\Textures\\entrance",
+}
+local PIN_BASE_SIZE = 24
+
+local pinIndex          -- [folder][floorNumber] = list of pin records
+local pinFrames = {}
+
+local function BuildPinIndex()
+    pinIndex = {}
+    local raw = MMM_InstancePins
+    if not raw then return end
+
+    for dungeonID, floors in pairs(raw) do
+        local dm = DUNGEON_MAPS[dungeonID]
+        if dm then
+            -- pins are stored per texture folder so wings / approaches share them
+            local byFloor = pinIndex[dm.folder]
+            if not byFloor then byFloor = {}; pinIndex[dm.folder] = byFloor end
+
+            for floor, list in pairs(floors) do
+                local out, bossAt = {}, {}
+                for _, p in ipairs(list) do
+                    local kind, x, y = p[1], p[2], p[3]
+                    if kind == "boss" then
+                        -- bosses sharing a spot become one pin with several names
+                        local key = string.format("%.3f:%.3f", x, y)
+                        local rec = bossAt[key]
+                        if not rec then
+                            rec = { kind = "boss", x = x, y = y, bosses = {} }
+                            bossAt[key] = rec
+                            out[#out + 1] = rec
+                        end
+                        local dupe = false
+                        for _, b in ipairs(rec.bosses) do
+                            if b.name == p[5] then dupe = true break end
+                        end
+                        if not dupe then
+                            rec.bosses[#rec.bosses + 1] = { name = p[5], level = p[6], optional = (p[8] == 2) }
+                        end
+                    elseif kind == "level" then
+                        out[#out + 1] = { kind = "level", x = x, y = y, toFloor = p[4], up = (p[5] == true) }
+                    elseif kind == "entrance" then
+                        out[#out + 1] = { kind = "entrance", x = x, y = y }
+                    end
+                end
+                byFloor[floor] = out
+            end
+        end
+    end
+end
+
+local function FloorIndexOf(floorNum)
+    if not currentMapData then return nil end
+    for i, f in ipairs(currentMapData.floors) do
+        if f == floorNum then return i end
+    end
+end
+
+local function ShowPinTooltip(pin)
+    local rec = pin.rec
+    if not rec then return end
+    GameTooltip:SetOwner(pin, "ANCHOR_RIGHT")
+
+    if rec.kind == "boss" then
+        for i, b in ipairs(rec.bosses) do
+            local name, title = (b.name or ""):match("^(.-)%s*<(.-)>$")
+            name = name or b.name
+            if i == 1 then GameTooltip:SetText(name, 1, 0.82, 0) else GameTooltip:AddLine(name, 1, 0.82, 0) end
+            if title then GameTooltip:AddLine("<" .. title .. ">", 0.7, 0.7, 0.7) end
+            if type(b.level) == "number" and b.level < 9000 then
+                GameTooltip:AddLine("Level " .. b.level, 1, 1, 1)
+            end
+            if b.optional then GameTooltip:AddLine("Optional boss", 0.6, 0.6, 0.6) end
+        end
+    elseif rec.kind == "level" then
+        local idx = FloorIndexOf(rec.toFloor)
+        GameTooltip:SetText((rec.up and "Up to Floor " or "Down to Floor ") .. (idx or "?"), 1, 0.82, 0)
+        GameTooltip:AddLine("Click to switch floors", 0.7, 0.7, 0.7)
+    else
+        GameTooltip:SetText("Entrance / Exit", 1, 0.82, 0)
+    end
+    GameTooltip:Show()
+end
+
+local function GetPin(i)
+    local pin = pinFrames[i]
+    if pin then return pin end
+
+    pin = CreateFrame("Button", nil, overlay)
+    pin:SetFrameLevel(overlay:GetFrameLevel() + 5)
+    pin:RegisterForClicks("LeftButtonUp")
+
+    pin.tex = pin:CreateTexture(nil, "ARTWORK")
+    pin.tex:SetAllPoints(pin)
+
+    pin.hl = pin:CreateTexture(nil, "HIGHLIGHT")
+    pin.hl:SetAllPoints(pin)
+    pin.hl:SetBlendMode("ADD")
+    pin.hl:SetAlpha(0.5)
+
+    pin:SetScript("OnEnter", ShowPinTooltip)
+    pin:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    pin:SetScript("OnClick", function(self)
+        local rec = self.rec
+        if rec and rec.kind == "level" then
+            local idx = FloorIndexOf(rec.toFloor)
+            if idx then
+                GameTooltip:Hide()
+                SetFloor(idx)
+            end
+        end
+    end)
+
+    pinFrames[i] = pin
+    return pin
+end
+
+RefreshPins = function()
+    for _, pin in ipairs(pinFrames) do pin:Hide() end
+    if not (overlay and currentMapData and overlay.floorIdx and overlay.fitW) then return end
+
+    if not pinIndex then BuildPinIndex() end
+    local byFloor = pinIndex[currentMapData.folder]
+    local list = byFloor and byFloor[currentMapData.floors[overlay.floorIdx]]
+    if not list then return end
+
+    local size = math.max(14, math.min(36, PIN_BASE_SIZE * (overlay.fitW / CONTENT_W)))
+    local n = 0
+    for _, rec in ipairs(list) do
+        -- floor-change pins only make sense when the target floor exists here
+        if rec.kind ~= "level" or FloorIndexOf(rec.toFloor) then
+            n = n + 1
+            local pin = GetPin(n)
+            local path = (rec.kind == "boss") and PIN_TEX.boss or PIN_TEX.entrance
+            pin.rec = rec
+            pin.tex:SetTexture(path)
+            pin.hl:SetTexture(path)
+
+            -- the arrow art points up; flip it for "down" floor changes
+            local rot = (rec.kind == "level" and not rec.up) and math.pi or 0
+            if pin.tex.SetRotation then
+                pin.tex:SetRotation(rot)
+                pin.hl:SetRotation(rot)
+            end
+
+            pin:SetSize(size, size)
+            pin:ClearAllPoints()
+            pin:SetPoint("CENTER", overlay, "TOPLEFT",
+                overlay.fitX0 + rec.x * overlay.fitW,
+                -(overlay.fitY0 + rec.y * overlay.fitH))
+            pin:Show()
+        end
     end
 end
 
@@ -228,7 +396,7 @@ local function BuildFloorDropdown(data, currentFloorIdx)
         for j = 1, #data.floors do
             local label = "Floor " .. j
             root:CreateRadio(label,
-                function() return currentFloorIdx == j end,
+                function() return overlay.floorIdx == j end,
                 function()
                     currentFloorIdx = j
                     SetFloor(j)
@@ -288,7 +456,7 @@ local function autoLoadForInstance()
     if itype ~= "party" and itype ~= "raid" then return end
     
     local data = GetDungeonDataByName(name)
-    if data then
+    if data and not data.comingSoon then
         ShowDungeonMap(data, 1)
     end
 end
@@ -321,6 +489,10 @@ MMM.GetDungeonOverlay = function() return overlay end
 
 MMM.ShowDungeonMapByID = function(id, floorIdx)
     local data = DUNGEON_MAPS[id]
+    if COMING_SOON_IDS[id] or (data and data.comingSoon) then
+        print(COMING_SOON_MSG)
+        return
+    end
     if data then 
         -- Use the requested floor, OR the default floor defined in the table, OR floor 1
         local startFloor = data.defaultFloor or floorIdx or 1
