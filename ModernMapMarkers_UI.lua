@@ -252,6 +252,13 @@ local function InitFilterDropdown()
 	addToggle("Skyships",     "showSkyships")
 	addToggle("Trams",        "showTrams")
 	addToggle("Portals",      "showPortals")
+	-- Race-restricted markers: only list the toggles the player can actually use.
+	local canLey, canConv = MMM.RaceAllowed("leyline"), MMM.RaceAllowed("convergence")
+	if canLey or canConv then
+		addHeader("Skyborne")
+		if canLey  then addToggle("Ley Lines",              "showLeylines") end
+		if canConv then addToggle("Elemental Convergences", "showConvergences") end
+	end
 	addHeader("Transport Faction")
 	addFactionRadio("Show All",               "transportFaction", "all")
 	addFactionRadio("|cFF2592C5Alliance|r",   "transportFaction", "Alliance")
@@ -732,10 +739,23 @@ SlashCmdList["MMM"] = function(msg)
 	elseif msg == "here" then
 		PrintHere()
 		return
+	elseif msg == "race" then
+		local name, file, id = UnitRace("player")
+		Say(sformat("UnitRace: name=%s token=%s id=%s", tostring(name), tostring(file), tostring(id)))
+		return
+	elseif msg == "allraces" then
+		local db = ModernMapMarkersDB
+		db.showAllRaces = not db.showAllRaces
+		Say("Show race-restricted markers for all races: " .. (db.showAllRaces and "ON" or "OFF"))
+		MMM.ForceRedraw()
+		MMM.UpdateMarkers()
+		return
 	elseif msg ~= "" then
 		Say("/mmm  -- show/hide the map dropdowns")
 		Say("/mmm hints  -- toggle transport click hints")
 		Say("/mmm here  -- print your position as a MarkerData line")
+		Say("/mmm race  -- print your race name/token (for the Skyborne marker filter)")
+		Say("/mmm allraces  -- show race-restricted markers regardless of your race")
 		return
 	end
 	if MMMFilterDropdown then

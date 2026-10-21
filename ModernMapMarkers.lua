@@ -30,9 +30,23 @@ local TEXTURES = {
 	tram      = "Interface\\AddOns\\ModernMapMarkers\\Textures\\tram.tga",
 	portal    = "Interface\\AddOns\\ModernMapMarkers\\Textures\\portal.tga",
 	skyship   = "Interface\\AddOns\\ModernMapMarkers\\Textures\\skyship.tga",
+	leyline   = "Interface\\AddOns\\ModernMapMarkers\\Textures\\leyline.blp",
+	convergence = "Interface\\AddOns\\ModernMapMarkers\\Textures\\convergence.blp",
 }
 
 local TRANSPORT_KINDS = { boat = true, zepp = true, tram = true, portal = true, skyship = true }
+
+-- Small pins: transports plus the many-per-zone Skyborne resource nodes.
+local SMALL_KINDS = { leyline = true, convergence = true }
+
+-- Race-restricted kinds: only shown to the listed race(s), by race ID (the
+-- third return of UnitRace, so it works on any client language). Both Skyborne
+-- races share the token "Skyborne", so the token cannot tell them apart.
+-- Run /mmm race to see what your character returns.
+local RACE_ONLY = {
+	leyline     = { 95 },  -- High Order Skyborne
+	convergence = { 96 },  -- Windshaper Skyborne
+}
 
 -- ============================================================
 -- Cached globals
@@ -199,6 +213,7 @@ local function BuildPointIndex()
 					kind      = p[5],
 					info      = p[6],
 					atlasID   = p[7],
+					race      = p[9],
 					noList    = (slot == "nolist"),
 					dropdown  = (slot == "dropdown"),
 					floor     = (type(slot) == "number") and slot or nil,
@@ -560,11 +575,39 @@ function MMM.ClearMarkers()
 	ClearMarkers()
 end
 
+-- True if the player's race ID is in `ids` (a single ID or a list of IDs).
+-- /mmm allraces (db.showAllRaces) bypasses every race restriction for testing.
+local function RaceIDMatches(ids)
+	local db = ModernMapMarkersDB
+	if db and db.showAllRaces then return true end
+	local _, _, raceID = UnitRace("player")
+	if type(ids) == "table" then
+		for i = 1, #ids do
+			if ids[i] == raceID then return true end
+		end
+		return false
+	end
+	return ids == raceID
+end
+
+-- True if `kind` has no race restriction, or the player's race is allowed.
+local function RaceAllowed(kind)
+	local gate = RACE_ONLY[kind]
+	if not gate then return true end
+	return RaceIDMatches(gate)
+end
+MMM.RaceAllowed = RaceAllowed
+
 local function ShouldDisplay(db, rec)
 	local kind = rec.kind
+	if not RaceAllowed(kind) then return false end
+	-- Per-marker race restriction (MarkerData slot 9), e.g. a Skyborne-only portal.
+	if rec.race and not RaceIDMatches(rec.race) then return false end
 	if kind == "dungeon"   then return db.showDungeons end
 	if kind == "raid"      then return db.showRaids end
 	if kind == "worldboss" then return db.showWorldBosses end
+	if kind == "leyline" then return db.showLeylines end
+	if kind == "convergence" then return db.showConvergences end
 
 	local factionKey
 	if kind == "boat" then
@@ -619,7 +662,7 @@ local function UpdateMarkers()
 	for i = 1, #relevantPoints do
 		local rec = relevantPoints[i]
 		if ShouldDisplay(db, rec) then
-			local size = TRANSPORT_KINDS[rec.kind] and MARKER_SIZE_SMALL or MARKER_SIZE_LARGE
+			local size = (TRANSPORT_KINDS[rec.kind] or SMALL_KINDS[rec.kind]) and MARKER_SIZE_SMALL or MARKER_SIZE_LARGE
 			local pin  = CreateMapPin(rec, size, TEXTURES[rec.kind], mapWidth, mapHeight, mapID)
 			activeMarkersCount = activeMarkersCount + 1
 			activeMarkers[activeMarkersCount] = pin
@@ -684,6 +727,9 @@ local DEFAULTS = {
 	showSkyships       = true,
 	showTrams          = true,
 	showPortals        = true,
+	showLeylines       = true,
+	showConvergences   = true,
+	showAllRaces       = false, -- debug: /mmm allraces
 	transportFaction   = "all",
 	portalFaction      = "all",
 	showTransportHints = true,

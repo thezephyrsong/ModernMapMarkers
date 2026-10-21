@@ -18,6 +18,8 @@ Integration with [DungeonJournal](https://www.curseforge.com/wow/addons/dungeonj
 
  Type /mmm hints to enable/disable transport marker click hints.
 
+ Skyborne markers. Ley Lines (High Order Skyborne) and Elemental Convergences (Windshaper Skyborne) are only shown to the matching race. Use /mmm race to see your race token and /mmm allraces to show them regardless of race.
+
 ## 👨‍💻 **Authors**
 
 Drakensangs,
