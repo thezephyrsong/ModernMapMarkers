@@ -32,6 +32,8 @@ local TEXTURES = {
 	skyship   = "Interface\\AddOns\\ModernMapMarkers\\Textures\\skyship.tga",
 	leyline   = "Interface\\AddOns\\ModernMapMarkers\\Textures\\leyline.blp",
 	convergence = "Interface\\AddOns\\ModernMapMarkers\\Textures\\convergence.blp",
+	bgalliance = "Interface\\AddOns\\ModernMapMarkers\\Textures\\alliancebg.tga",
+	bghorde   = "Interface\\AddOns\\ModernMapMarkers\\Textures\\hordebg.tga",
 }
 
 local TRANSPORT_KINDS = { boat = true, zepp = true, tram = true, portal = true, skyship = true }
@@ -622,6 +624,9 @@ local function ShouldDisplay(db, rec)
 	elseif kind == "portal" then
 		if not db.showPortals then return false end
 		factionKey = db.portalFaction
+	elseif kind == "battleground" then
+		if not db.showBattlegrounds then return false end
+		factionKey = db.bgFaction
 	else
 		return false
 	end
@@ -660,7 +665,12 @@ local function UpdateMarkers()
 		local rec = relevantPoints[i]
 		if ShouldDisplay(db, rec) then
 			local size = (TRANSPORT_KINDS[rec.kind] or SMALL_KINDS[rec.kind]) and MARKER_SIZE_SMALL or MARKER_SIZE_LARGE
-			local pin  = CreateMapPin(rec, size, TEXTURES[rec.kind], mapWidth, mapHeight, mapID)
+			local texture = TEXTURES[rec.kind]
+			if rec.kind == "battleground" then
+				-- Entrances are faction-specific: the icon follows the info field.
+				texture = (rec.info == "Horde") and TEXTURES.bghorde or TEXTURES.bgalliance
+			end
+			local pin  = CreateMapPin(rec, size, texture, mapWidth, mapHeight, mapID)
 			activeMarkersCount = activeMarkersCount + 1
 			activeMarkers[activeMarkersCount] = pin
 		end
@@ -729,6 +739,8 @@ local DEFAULTS = {
 	showAllRaces       = false, -- debug: /mmm allraces
 	transportFaction   = "all",
 	portalFaction      = "all",
+	showBattlegrounds  = true,
+	bgFaction          = "all",
 	showTransportHints = true,
 }
 

@@ -14,7 +14,7 @@
 --              may contain an embedded comment after \n
 --              example: "Gnomeregan\n|cFF808080(Workshop Entrance)|r"
 --              the comment is shown as a second line in the Find Marker panel
---   type     : "dungeon", "raid", "worldboss", "boat", "zepp", "tram", "skyship", "portal", "leyline" & "convergence"
+--   type     : "dungeon", "raid", "worldboss", "boat", "zepp", "tram", "skyship", "portal", "leyline", "convergence" & "battleground"
 --   info     : level range, examples: "52-60" or "60"
 --              faction string: "Alliance", "Horde" & "Neutral"
 --   dungeonID : used for dungeons and raids
@@ -152,6 +152,13 @@ MMM_DefaultPoints = {
 		{2, 0.535, 0.816, "Azuregos", "worldboss", "60", nil},
 		{1, 0.937, 0.355, "Emerald Dragon\n|cFF808080(Bough Shadow)|r", "worldboss", "60", nil},
 		{11, 0.512, 0.108, "Emerald Dragon\n|cFF808080(Dream Bough)|r", "worldboss", "60", nil},
+		-- Battlegrounds (entrance markers; info = the faction that can use the entrance).
+		-- Entries marked "approx" are estimates: stand on the portal and use /mmm here
+		-- to get exact coordinates.
+		{1, 0.620, 0.830, "Warsong Gulch", "battleground", "Alliance", nil, "nolist"},
+		{19, 0.430, 0.100, "Warsong Gulch", "battleground", "Horde", nil, "nolist"}, -- approx
+		{19, 0.643, 0.333, "Darkspear Islands", "battleground", "Horde", nil, "nolist"},
+		{9, 0.543, 0.081, "Darkspear Islands", "battleground", "Alliance", nil, "nolist"},
 		-- Transport
 		{8, 0.512, 0.135, "Zeppelins to Tirisfal Glades & Grom'Gol", "zepp", "Horde", nil, {{2, 25, "Tirisfal Glades"}, {2, 22, "Grom'Gol"}}},
 		{13, 0.346, 0.244, "Skyship to Zephras Isle", "skyship", "Horde", nil, {1, 26}},
@@ -312,6 +319,11 @@ MMM_DefaultPoints = {
 		-- World Bosses
 		{8, 0.465, 0.357, "Emerald Dragon\n|cFF808080(The Twilight Grove)|r", "worldboss", "60", nil},
 		{24, 0.632, 0.217, "Emerald Dragon\n|cFF808080(Seradane)|r", "worldboss", "60", nil},
+		-- Battlegrounds (see the note in the Kalimdor section)
+		{2, 0.460, 0.470, "Arathi Basin", "battleground", "Alliance", nil, "nolist"}, -- approx
+		{2, 0.740, 0.340, "Arathi Basin", "battleground", "Horde", nil, "nolist"}, -- approx
+		{13, 0.440, 0.510, "Alterac Valley", "battleground", "Alliance", nil, "nolist"}, -- approx
+		{13, 0.660, 0.120, "Alterac Valley", "battleground", "Horde", nil, "nolist"}, -- approx
 		-- Transport
 		{1, 0.126, 0.520, "Skyship to Zephras Isle", "skyship", "Alliance", nil, {1, 26}},
 		{21, 0.677, 0.325, "Tram to Ironforge", "tram", "Alliance", nil, {2, 14}},

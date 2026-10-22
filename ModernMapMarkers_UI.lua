@@ -246,6 +246,7 @@ local function InitFilterDropdown()
 	addToggle("Dungeons",     "showDungeons")
 	addToggle("Raids",        "showRaids")
 	addToggle("World Bosses", "showWorldBosses")
+	addToggle("Battlegrounds", "showBattlegrounds")
 	addHeader("Transports")
 	addToggle("Boats",        "showBoats")
 	addToggle("Zeppelins",    "showZeppelins")
@@ -267,6 +268,10 @@ local function InitFilterDropdown()
 	addFactionRadio("Show All",               "portalFaction", "all")
 	addFactionRadio("|cFF2592C5Alliance|r",   "portalFaction", "Alliance")
 	addFactionRadio("|cFFE32A19Horde|r",      "portalFaction", "Horde")
+	addHeader("Battleground Faction")
+	addFactionRadio("Show All",               "bgFaction", "all")
+	addFactionRadio("|cFF2592C5Alliance|r",   "bgFaction", "Alliance")
+	addFactionRadio("|cFFE32A19Horde|r",      "bgFaction", "Horde")
 end
 
 -- ============================================================

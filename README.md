@@ -27,3 +27,5 @@ Zae
 
 <img width="434" height="363" alt="Ruins of Lordaeron" src="https://github.com/user-attachments/assets/ae4c7260-3da8-4d78-8ea2-62011759dd71" />
 <img width="287" height="178" alt="Auberdine Boats" src="https://github.com/user-attachments/assets/d19d6fdd-d064-42cc-8d94-a80efacbe6e1" />
+
+ Battleground entrances. Warsong Gulch, Arathi Basin, Alterac Valley and Darkspear Islands entrances are shown with faction-coloured icons. Use the Battlegrounds toggle and Battleground Faction filter in the filter menu. Entries marked approx in MarkerData.lua are estimates; stand on the portal and use /mmm here to get exact coordinates.
