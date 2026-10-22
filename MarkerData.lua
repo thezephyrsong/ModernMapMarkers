@@ -146,7 +146,7 @@ MMM_DefaultPoints = {
 		{9, 0.529, 0.777, "Onyxia's Lair", "raid", "60", "onyxias_lair"},
 		{15, 0.305, 0.987, "Ruins of Ahn'Qiraj", "raid", "60", "ruins_of_ahnqiraj"},
 		{15, 0.269, 0.987, "Temple of Ahn'Qiraj", "raid", "60", "temple_of_ahnqiraj"},
-		{25, 0.591, 0.592, "The Barrow Deeps", "raid", "60", "barrow_deeps"},
+		{25, 0.704, 0.627, "The Barrow Deeps", "raid", "60", "barrow_deeps"},
 		{24, 0.503, 0.479, "The Barrow Deeps", "raid", "60", "barrow_deeps"},
 		-- World Bosses
 		{2, 0.535, 0.816, "Azuregos", "worldboss", "60", nil},
