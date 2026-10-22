@@ -38,8 +38,8 @@ local TEXTURES = {
 
 local TRANSPORT_KINDS = { boat = true, zepp = true, tram = true, portal = true, skyship = true }
 
--- Small pins: transports plus the many-per-zone Skyborne resource nodes.
-local SMALL_KINDS = { leyline = true, convergence = true }
+-- Small pins: transports/battlegrounds plus the many-per-zone Skyborne resource nodes.
+local SMALL_KINDS = { leyline = true, convergence = true, battleground = true }
 
 -- Race-restricted kinds: only shown to the listed race(s), by race ID (the
 -- third return of UnitRace, so it works on any client language). Both Skyborne

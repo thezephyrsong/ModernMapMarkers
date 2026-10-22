@@ -322,8 +322,8 @@ MMM_DefaultPoints = {
 		-- Battlegrounds (see the note in the Kalimdor section)
 		{2, 0.460, 0.470, "Arathi Basin", "battleground", "Alliance", nil, "nolist"}, -- approx
 		{2, 0.740, 0.340, "Arathi Basin", "battleground", "Horde", nil, "nolist"}, -- approx
-		{13, 0.440, 0.510, "Alterac Valley", "battleground", "Alliance", nil, "nolist"}, -- approx
-		{13, 0.660, 0.120, "Alterac Valley", "battleground", "Horde", nil, "nolist"}, -- approx
+		{1, 0.397, 0.797, "Alterac Valley", "battleground", "Alliance", nil, "nolist"}, -- approx
+		{1, 0.641, 0.584, "Alterac Valley", "battleground", "Horde", nil, "nolist"}, -- approx
 		-- Transport
 		{1, 0.126, 0.520, "Skyship to Zephras Isle", "skyship", "Alliance", nil, {1, 26}},
 		{21, 0.677, 0.325, "Tram to Ironforge", "tram", "Alliance", nil, {2, 14}},
