@@ -147,6 +147,7 @@ MMM_DefaultPoints = {
 		{15, 0.305, 0.987, "Ruins of Ahn'Qiraj", "raid", "60", "ruins_of_ahnqiraj"},
 		{15, 0.269, 0.987, "Temple of Ahn'Qiraj", "raid", "60", "temple_of_ahnqiraj"},
 		{25, 0.591, 0.592, "The Barrow Deeps", "raid", "60", "barrow_deeps"},
+		{24, 0.503, 0.479, "The Barrow Deeps", "raid", "60", "barrow_deeps"},
 		-- World Bosses
 		{2, 0.535, 0.816, "Azuregos", "worldboss", "60", nil},
 		{1, 0.937, 0.355, "Emerald Dragon\n|cFF808080(Bough Shadow)|r", "worldboss", "60", nil},
@@ -266,6 +267,11 @@ MMM_DefaultPoints = {
 		{1413, 0.470, 0.802, "Elemental Convergence", "convergence", "Windshaper Skyborne", nil, "nolist"},
 		{1413, 0.509, 0.145, "Elemental Convergence", "convergence", "Windshaper Skyborne", nil, "nolist"},
 		{1439, 0.584, 0.198, "Elemental Convergence", "convergence", "Windshaper Skyborne", nil, "nolist"},
+		{1412, 0.502, 0.535, "Elemental Convergence", "convergence", "Windshaper Skyborne", nil, "nolist"},
+		{1440, 0.600, 0.630, "Elemental Convergence", "convergence", "Windshaper Skyborne", nil, "nolist"},
+		{1440, 0.763, 0.675, "Elemental Convergence", "convergence", "Windshaper Skyborne", nil, "nolist"},
+		{1440, 0.861, 0.587, "Elemental Convergence", "convergence", "Windshaper Skyborne", nil, "nolist"},
+		{1440, 0.894, 0.498, "Elemental Convergence", "convergence", "Windshaper Skyborne", nil, "nolist"},
 	},
 	-- -------------------------------------------------------------------------
 	[2] = { -- Eastern Kingdoms
@@ -748,9 +754,37 @@ MMM_InstancePins = {
 	["scholomance"] = {  -- [seq] floors assumed to follow source IDs in order; verify in-game
 		[1] = {
 			{"entrance", 0.390, 0.652},
+			{"level", 0.666, 0.322, 2},
+		},
+		[2] = {
+			{"level", 0.618, 0.293, 1, true},
+			{"level", 0.288, 0.322, 3},
+			{"level", 0.293, 0.844, 3},
+			{"level", 0.397, 0.891, 4},
+			{"level", 0.636, 0.533, 3},
+			{"boss", 0.441, 0.634, 10433, "Marduk Blackpool", 60, nil, 1},
+			{"boss", 0.486, 0.636, 10432, "Vectus", 60, nil, 1},
+			{"boss", 0.492, 0.098, 10506, "Kirtonos the Herald", 60, nil, 2},
+		},
+		[3] = {
+			{"level", 0.283, 0.166, 2, true},
+			{"level", 0.351, 0.801, 2, true},
+			{"level", 0.580, 0.623, 2, true},
+			{"level", 0.706, 0.458, 4},
+			{"boss", 0.311, 0.640, 11622, "Rattlegore", 60, nil, 1},
+			{"boss", 0.536, 0.141, 10503, "Jandice Barov", 60, nil, 1},
+			{"boss", 0.720, 0.221, 10901, "Lorekeeper Polkelt", 60, nil, 1},
+			{"boss", 0.885, 0.454, 11261, "Doctor Theolen Krastinov <The Butcher>", 60, nil, 1},
+			{"boss", 0.723, 0.702, 10505, "Instructor Malicia", 60, nil, 1},
 		},
 		[4] = {
+			{"level", 0.648, 0.293, 3, true},
+			{"level", 0.479, 0.553, 2, true},
 			{"boss", 0.406, 0.884, 10508, "Ras Frostwhisper", 62, 7919, 1},
+			{"boss", 0.666, 0.147, 10502, "Lady Illucia Barov", 60, nil, 1},
+			{"boss", 0.785, 0.289, 10504, "Lord Alexei Barov", 60, nil, 1},
+			{"boss", 0.669, 0.479, 10507, "The Ravenian", 60, nil, 1},
+			{"boss", 0.671, 0.296, 1853, "Darkmaster Gandling", 61, nil, 1},
 		},
 	},
 	["shadowfang_keep"] = {  -- [seq] floors assumed to follow source IDs in order; verify in-game
@@ -989,13 +1023,39 @@ MMM_InstancePins = {
 			{"boss", 0.670, 0.310, 10184, "Onyxia", 9999, 8570, 3},
 		},
 	},
-	["ruins_of_ahnqiraj"] = {  -- placeholder, no pin data yet
-		[1] = {},
+	["ruins_of_ahnqiraj"] = {
+		[1] = {
+			{"entrance", 0.595, 0.108, "raid"},
+			{"boss", 0.544, 0.348, 15348, "Kurinaxx", 9999, nil, 3},
+			{"boss", 0.568, 0.479, 15341, "General Rajaxx", 9999, nil, 3},
+			{"boss", 0.680, 0.607, 15370, "Buru the Gorger", 9999, nil, 3},
+			{"boss", 0.601, 0.879, 15369, "Ayamiss the Hunter", 9999, nil, 3},
+			{"boss", 0.320, 0.358, 15340, "Moam", 9999, nil, 3},
+			{"boss", 0.419, 0.679, 15339, "Ossirian the Unscarred", 9999, nil, 3},
+		},
 	},
-	["temple_of_ahnqiraj"] = {  -- placeholder, no pin data yet
-		[1] = {},
-		[2] = {},
-		[3] = {},
+	["temple_of_ahnqiraj"] = {
+		[1] = {
+			{"level", 0.343, 0.452, 2, true},
+			{"boss", 0.280, 0.491, 15511, "Lord Kri / Princess Yauj / Vem", 9999, nil, 2},
+			{"boss", 0.442, 0.333, 15516, "Battleguard Sartura", 9999, nil, 3},
+			{"boss", 0.619, 0.225, 15510, "Fankriss the Unyielding", 9999, nil, 3},
+			{"boss", 0.718, 0.182, 15299, "Viscidus", 9999, nil, 2},
+			{"boss", 0.430, 0.502, 15509, "Princess Huhuran", 9999, nil, 3},
+			{"boss", 0.618, 0.642, 15276, "Emperor Vek'lor", 9999, nil, 3},
+			{"boss", 0.628, 0.737, 15275, "Emperor Vek'nilash", 9999, nil, 3},
+			{"boss", 0.299, 0.811, 15517, "Ouro", 9999, nil, 2},
+		},
+		[2] = {
+			{"entrance", 0.522, 0.265, "raid"},
+			{"boss", 0.454, 0.510, 15263, "The Prophet Skeram", 9999, nil, 3},
+			{"level", 0.488, 0.636, 1},
+			{"level", 0.590, 0.687, 3},
+		},
+		[3] = {
+			{"level", 0.586, 0.419, 1, true},
+			{"boss", 0.568, 0.630, 15727, "C'Thun", 9999, nil, 3},
+		},
 	},
 	["zul_gurub"] = {
 		[1] = {

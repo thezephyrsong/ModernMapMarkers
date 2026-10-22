@@ -526,15 +526,12 @@ local function CreateMapPin(rec, size, texture, mapWidth, mapHeight, mapID)
 			
 			-- Handle Left-Click: Show the native Dungeon Map overlay
 			if button == "LeftButton" then
-				print("MMM Debug: Left-clicked", self.markerName, "- Journal ID:", journalID)
-				
 				if MMM.ShowDungeonMapByID then
-					print("MMM Debug: Function exists, calling it now...")
 					MMM.ShowDungeonMapByID(journalID, self.dungeonFloor or 1)
-				else
-					print("MMM Debug: ERROR - MMM.ShowDungeonMapByID is nil!")
-				end
+			else
+				print("MMM Debug: ERROR - MMM.ShowDungeonMapByID is nil!")
 			end
+		end
 
 			-- Right-Click: Open ForeverDungeonJournal (Standard behavior)
 			if button == "RightButton" then
